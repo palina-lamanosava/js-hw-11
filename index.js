@@ -26,29 +26,58 @@ import colors from "./colors.js";
 
 const startBTN = document.querySelector('[data-action="start"]');
 const stopBTN = document.querySelector('[data-action="stop"]');
-let bodyColors = null;
+let changeBodyColors = null;
+let colorID = null;
 
 let i = 0;
 const body = document.querySelector('#body');
 
-
 startBTN.addEventListener("click", () => {
     startBTN.disabled = true;
-    bodyColors = setInterval(() => {
+    
+    
+    changeBodyColors = setInterval(() => {
+        newColorId();
        
-        i = randomIntegerFromInterval(0, colors.length - 1);
-        console.log(i);
-        body.style.backgroundColor = colors[i];
+        body.style.backgroundColor = colors[colorID];
         
     }, 2000);
    
     
 });
 
+function newColorId() {
+    
+     i = randomIntegerFromInterval(0, colors.length - 1);
+    if (colorID != i) {
+        colorID = i;
+        console.log(i);
+        return colorID;
+
+    } else {
+        console.log(` ${i} такой уже был`)
+        newColorId();
+    }
+    
+}
+
+// startBTN.addEventListener("click", () => {
+//     startBTN.disabled = true;
+//     bodyColors = setInterval(() => {
+       
+//         i = randomIntegerFromInterval(0, colors.length - 1);
+//         console.log(i);
+//         body.style.backgroundColor = colors[i];
+        
+//     }, 2000);
+   
+    
+// });
+
 
 stopBTN.addEventListener("click", () => {
     startBTN.disabled = false;
-    clearInterval(bodyColors);
+    clearInterval(changeBodyColors);
 })
 
 const randomIntegerFromInterval = (min, max) => {
