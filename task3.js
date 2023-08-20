@@ -15,7 +15,7 @@ const makeTransaction = (transaction) => {
 
     if (canProcess) {
     console.log(delay);
-      resolve(transaction.id, delay);
+      resolve({id:transaction.id, time:delay});
     } else {
       reject(transaction.id);
     }
@@ -25,7 +25,8 @@ const makeTransaction = (transaction) => {
   
 };
 
-const logSuccess = (id, time ) => {
+const logSuccess = (resolve) => {
+  const { id, time } = resolve;
   console.log(`Transaction ${id} processed in ${time}ms`);
 };
 
